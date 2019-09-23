@@ -6,7 +6,7 @@ permitidos o uso de bibliotecas de terceiros, exceto para testes unitários.<br>
 Deve-se desenvolver os devidos códigos em Java, com a bibliotecas nativas do JEE.<br>
 <br>
 Ao finalizar o desafio, os códigos devem ser comitados no GitHub/BitBucket.<br>  
-Favor enviar o endereço público dos mesmos para cristiane.moraes@projuris.com.br , carlos.rezende@projuris.com.br e tadeu.bonatti@projuris.com.br<br>
+Favor enviar o endereço público dos mesmos para:********************************
 <br></b> 
 Um equipamento de inspeção industrial é responsável por identificar defeitos em uma 
 estrutura metálica, para tanto, o mesmo identifica as regiões em sua superfície cuja a 
