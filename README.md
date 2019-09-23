@@ -38,24 +38,24 @@ nenhum estado precisa ser mantido entre cada chamada.
 
 curl -X POST \ -d ‘[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]’<br> 
 http://localhost:8080/spot_check  
-R: {“total_area”: 0, “number_of_spots”: 0, “spots_average_area”: 0.0,  “biggest_spot_area”: 0}    
+<b>R:</b> {“total_area”: 0, “number_of_spots”: 0, “spots_average_area”: 0.0,  “biggest_spot_area”: 0}    
 
 curl -X POST \ -d ‘[[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]]’<br> 
-http://localhost:8080/spot_check  R: {“total_area”: 8, “number_of_spots”: 2, “spots_average_area”: 4.0, 
-“biggest_spot_area”: 4}    
+http://localhost:8080/spot_check  
+<b>R:</b> {“total_area”: 8, “number_of_spots”: 2, “spots_average_area”: 4.0, “biggest_spot_area”: 4}    
 
 curl -X POST \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1]]’<br> 
 http://localhost:8080/spot_check  
-R: {“total_area”: 5, “number_of_spots”: 3, “spots_average_area”: 1.66666, 
+<b>R:</b> {“total_area”: 5, “number_of_spots”: 3, “spots_average_area”: 1.66666, 
 “biggest_spot_area”: 3}    curl -X GET \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1]]’  
 
 http://localhost:8080/spot_check  
-R: Invalid Method    
+<b>R:</b> Invalid Method    
 
 curl -X POST \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1, 1, 0, 1, 1, 0]]’<br> 
 http://localhost:8080/spot_check<br> 
-R:Invalid Matrix Format 
+<b>R:</b> Invalid Matrix Format 
 
 curl -X POST \ -d ‘[[“0”, 0.0, false, 0], [“1”, 1.0, true, 0], [0, 0, 0, 0], [0, 0, 0, 0]]’<br> 
 http://localhost:8080/spot_check<br> 
-R: Invalid Matrix Forma
+<b>R:</b> Invalid Matrix Forma
