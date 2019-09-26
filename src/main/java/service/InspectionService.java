@@ -3,7 +3,7 @@ package service;
 import model.request.QuartersForInspectionRequest;
 import model.response.IndustrialInspectionResponse;
 
-import java.util.List;
+import java.util.*;
 
 public class InspectionService {
 
@@ -50,7 +50,50 @@ public class InspectionService {
     }
 
     private Integer verifyBiggestSpotArea(QuartersForInspectionRequest quarters) {
+        List<List<Integer>> valueMap = new ArrayList<>();
+        valueMap.add(Arrays.asList(0, 0, 0, 0));
+        valueMap.add(Arrays.asList(0, 0, 0, 0));
+        valueMap.add(Arrays.asList(0, 0, 0, 0));
+        valueMap.add(Arrays.asList(0, 0, 0, 0));
 
-        return 4;
+        List<List<Integer>> get = quarters.getQuarters();
+        Integer spotSize = 0;
+
+        boolean onSpot = true;
+
+        for (int i = 0; i < get.size(); i++) {
+            List<Integer> listInteger = get.get(i);
+            for (int e = 0; e < listInteger.size(); e++) {
+                Integer integer = listInteger.get(e);
+                if (integer.equals(1) && onSpot) {
+                    spotSize++;
+                    valueMap.get(i).set(e, spotSize);
+                    if (spotSize > 1) {
+                        List<Integer> integers = valueMap.get(i);
+                        for (int y = 0; y < spotSize; y++) {
+                            integers.set(e - y, spotSize);
+                        }
+                    }
+
+                    onSpot = true;
+                } else {
+                    if (integer.equals(0)) {
+                        onSpot = false;
+                        spotSize = 0;
+                    } else if (integer.equals(1)) {
+                        onSpot = true;
+                        spotSize = 1;
+                        valueMap.get(i).set(e, spotSize);
+                    }
+                }
+            }
+            onSpot = true;
+        }
+
+        List<Integer> maxValue = new ArrayList<>();
+        for (List<Integer> integers : valueMap) {
+            maxValue.add(Collections.max(integers));
+        }
+        return Collections.max(maxValue);
     }
 }
