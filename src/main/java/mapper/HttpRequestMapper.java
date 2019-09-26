@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static constants.GeneralConstants.MATRIX_SIZE;
-
 public class HttpRequestMapper  {
+
+    private static final int MATRIX_SIZE = 56;
 
     public QuartersForInspectionRequest httpRequestToQuartersRequest(String httpRequestJson) throws InvalidMatrixFormat {
         if(httpRequestJson.length()!= MATRIX_SIZE){
