@@ -7,36 +7,39 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class HttpRequestMapper  {
+public class HttpRequestMapper {
 
     private static final int MATRIX_SIZE = 56;
 
     public QuartersForInspectionRequest httpRequestToQuartersRequest(String httpRequestJson) throws InvalidMatrixFormat {
-        if(httpRequestJson.length()!= MATRIX_SIZE){
+        if (httpRequestJson.length() != MATRIX_SIZE) {
             throw new InvalidMatrixFormat();
         }
-        List<String> listOfElements = toListOfElements(httpRequestJson);
+        String[] listOfElements = toListOfElements(httpRequestJson);
 
-        List<List<String>> list = toListOfList(listOfElements);
+        int[][] list = toFinalList(listOfElements);
 
 
-        return new QuartersForInspectionRequest(toListOfIntegers(list));
+        return new QuartersForInspectionRequest(list);
     }
 
-    private List<String> toListOfElements(final String request){
-        return Arrays.asList(request.replace("[[","")
-                .replace("[","")
+    private String[] toListOfElements(final String request) {
+        return request.replace("[[", "")
+                .replace("[", "")
                 .replace("],", "]")
-                .replace("]]","]")
-                .replace(" ","")
-                .split("]"));
+                .replace("]]", "]")
+                .replace(" ", "")
+                .split("]");
     }
 
-    private List<List<String>> toListOfList(final List<String> request){
-        return request.stream().map(e-> Arrays.asList(e.split(","))).collect(Collectors.toList());
-    }
-
-    private List<List<Integer>> toListOfIntegers(final List<List<String>> request){
-        return request.stream().map(e-> e.stream().map(Integer::parseInt).collect(Collectors.toList())).collect(Collectors.toList());
+    private int[][] toFinalList(final String[] request) {
+        int[][] list = new int[request.length][request[0].split(",").length];
+        for (int i = 0; i < request.length; i++) {
+            String[] line = request[i].split(",");
+            for (int i1 = 0; i1 < line.length; i1++) {
+                list[i][i1] = Integer.parseInt(line[i1]);
+            }
+        }
+        return list;
     }
 }

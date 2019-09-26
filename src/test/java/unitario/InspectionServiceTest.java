@@ -31,16 +31,6 @@ public class InspectionServiceTest {
     }
 
     private QuartersForInspectionRequest generateMockQuarter() {
-        List<List<Integer>> mock = new ArrayList<>();
-
-        List<Integer> lineOne = Arrays.asList(1, 1, 0, 0);
-        List<Integer> lineTwo = Arrays.asList(1, 1, 0, 0);
-        List<Integer> lineThree = Arrays.asList(0, 0, 1, 1);
-        List<Integer> lineFour = Arrays.asList(0, 0, 1, 1);
-        mock.add(lineOne);
-        mock.add(lineTwo);
-        mock.add(lineThree);
-        mock.add(lineFour);
-        return new QuartersForInspectionRequest(mock);
+        return new QuartersForInspectionRequest(new int[][]{{1, 1, 0, 0}, {1, 1, 0, 0}, {0, 0, 1, 1}, {0, 0, 1, 1}});
     }
 }

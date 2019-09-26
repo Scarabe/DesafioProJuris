@@ -3,13 +3,13 @@ package model.request;
 import java.util.List;
 
 public class QuartersForInspectionRequest {
-    private final List<List<Integer>> quarters;
+    private final int[][] quarters;
 
-    public QuartersForInspectionRequest(List<List<Integer>> quarters) {
+    public QuartersForInspectionRequest(int[][] quarters) {
         this.quarters = quarters;
     }
 
-    public List<List<Integer>> getQuarters() {
+    public int[][] getQuarters() {
         return quarters;
     }
 }
