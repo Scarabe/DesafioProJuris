@@ -13,10 +13,6 @@ Para code quality foi utilizada a ferramenta <b>codacy</b> apos analyse feita, a
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2fa2b9a4e8c7444e90803007db547786)](https://www.codacy.com/manual/Scarabe/DesafioProJuris?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Scarabe/DesafioProJuris&amp;utm_campaign=Badge_Grade)
 
 <h3><b>Testes automatizados:</b></h3>
-Existem duas switchs de tests no projeto, uma dedicada a testes unitarios e outra dedicada a testes de integração.
-<UL>
-  <LI><b>Testes de integração</b><br>
-    Para executar os testes de integração é necessária a execução manual dos testes pós start do projeto (testes de integração <b>não funcionam</b> caso a aplicação não esteja rodando, está classe é a <b>BankSlipIntegration.java</b></br>
   <LI><b>Testes unitários</b><br>
     São testes aplicados somente a camada de serviço do projeto podendo ser executados a qualquer momento, são responsaveis       também pela line coverate do projeto, são executados automaticamente no build do projeto, podendo ser executados              manualmente via classe <b>BankSlipServiceTest.java</b>
 </UL>
