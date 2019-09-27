@@ -14,7 +14,7 @@ Para code quality foi utilizada a ferramenta <b>codacy</b> apos analyse feita, a
 
 <h3><b>Testes automatizados:</b></h3>
   <LI><b>Testes unitários</b><br>
-    São testes aplicados somente a camada de serviço do projeto podendo ser executados a qualquer momento, são responsaveis       também pela line coverate do projeto, são executados automaticamente no build do projeto, podendo ser executados              manualmente via classe <b>BankSlipServiceTest.java</b>
+    São testes aplicados somente a camada de serviço do projeto</b>
 </UL>
  
 <h3><b>Técnologias Utilizadas:</b></h3>
