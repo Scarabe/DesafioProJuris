@@ -76,7 +76,7 @@ public class InspectionService {
                 !visited[row][col]));
     }
 
-    private static void DFS(int[][] matrix, int row, int col, boolean[][] visited) {
+    private static void doFillSafe(int[][] matrix, int row, int col, boolean[][] visited) {
         int[] rowNbr = {-1, 0, 0, 1};
         int[] colNbr = {0, -1, 1, 0};
 
@@ -84,7 +84,7 @@ public class InspectionService {
         for (int k = 0; k < 4; ++k) {
             if (isSafe(matrix, row + rowNbr[k], col + colNbr[k], visited)) {
                 count++;
-                DFS(matrix, row + rowNbr[k], col + colNbr[k], visited);
+                doFillSafe(matrix, row + rowNbr[k], col + colNbr[k], visited);
             }
         }
     }
@@ -96,7 +96,7 @@ public class InspectionService {
             for (int j = 0; j < COL; j++) {
                 if (M[i][j] == 1 && !visited[i][j]) {
                     count = 1;
-                    DFS(M, i, j, visited);
+                    doFillSafe(M, i, j, visited);
                     result = Math.max(result, count);
                 }
             }
