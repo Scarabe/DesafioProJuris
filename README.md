@@ -14,7 +14,7 @@ Para code quality foi utilizada a ferramenta <b>codacy</b> apos analyse feita, a
 
 <h3><b>Testes automatizados:</b></h3>
   <LI><b>Testes unitários</b><br>
-    São testes aplicados somente a camada de serviço do projeto</b>
+    São testes aplicados somente a camada de serviço do projeto.</b>
 </UL>
  
 <h3><b>Técnologias Utilizadas:</b></h3>
