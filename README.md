@@ -1,61 +1,39 @@
 <h1><b>Desafio ProJuris,</b></h1>
-<b>   
-Para o desenvolvimento dos algoritmos propostos abaixo, não serão <br>
-permitidos o uso de bibliotecas de terceiros, exceto para testes unitários.<br> 
-<br>
-Deve-se desenvolver os devidos códigos em Java, com a bibliotecas nativas do JEE.<br>
-<br>
-Ao finalizar o desafio, os códigos devem ser comitados no GitHub/BitBucket.<br>  
-Favor enviar o endereço público dos mesmos para:********************************<br>
-<br></b> 
-Um equipamento de inspeção industrial é responsável por identificar defeitos em uma 
-estrutura metálica, para tanto, o mesmo identifica as regiões em sua superfície cuja a 
-rugosidade ultrapassa determinado limite. As peças tem um tamanho arbitrário de 
-NxN, sendo sempre quadradas. O equipamento então divide a área escaneada em 
-quadrados de 1mm2, cada ponto então compõe uma matriz bidimensional, marcando 
-com “1” as regiões falhas.   
+Olá avaliador! Neste readme irei dividir as informações relevantes em tópicos, o desafio que me foi passado foi:
+https://github.com/Scarabe/DesafioProJuris/blob/master/teste_projuris_java.pdf
 
-Seu trabalho é receber estes dados e processá-los para fornecer as seguintes informações:   
+<h3><b>Como executar o projeto:</b></h3>
+  <LI><b>Via Tomcat servlet</b><br>
+    Para executar o projeto basta deployar o projeto no Apache Tomcat e faz as calls necessárias.
+</UL>
 
-<b>1.</b> Área total que tem sua rugosidade marcada como alta (em pixels);  
-<b>2.</b> Identificar e contar quantas ‘manchas’ existem na superfície. É dito que dois pontos 
-adjacentes pertencem a mesma mancha se ambos compartilham arestas, não 
-bastando que compartilhem vértices. Isso é, apenas o pixel imediatamente acima, 
-abaixo, direita e esquerda, desconsiderando as diagonais;  
-<b>3.</b> Calcular a média da área das manchas apresentados na imagem (em pixels);  
-<b>4.</b> Retornar a área da maior mancha (em pixels);   
+<h3><b>Code coverege e code quality:</b></h3>
+Para code coverage, testes unitários, foi considerada apenas classes de serviço, para estas classes o código teve 100% de suas linhas cobertas.
+Para code quality foi utilizada a ferramenta <b>codacy</b> apos analyse feita, a ferramenta apontou apenas 2 issues, totalizando 5% de issues no projeto e disponibilizando ao projeto a certificação A.
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2fa2b9a4e8c7444e90803007db547786)](https://www.codacy.com/manual/Scarabe/DesafioProJuris?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Scarabe/DesafioProJuris&amp;utm_campaign=Badge_Grade)
 
-O equipamento enviará os dados em JSON e espera a resposta no mesmo formato, 
-sendo os dados transmitidos compostos por uma array de tamanho N, contendo por 
-sua vez arrays de mesmo tamanho. Cada elemento desta segunda array será sempre 
-um inteiro, “1” para quando a região é de alta rugosidade e representa uma mancha, 
-“0” para quando a região está OK. As respostas são um objeto, contendo os seguintes 
-campos: { “total_area”: 10, “number_of_spots”: 1, “spots_average_area”: 10.0, 
-“biggest_spot_area”: 10 } O equipamento manda as requisições via HTTP Post e 
-nenhum estado precisa ser mantido entre cada chamada. 
+<h3><b>Testes automatizados:</b></h3>
+Existem duas switchs de tests no projeto, uma dedicada a testes unitarios e outra dedicada a testes de integração.
+<UL>
+  <LI><b>Testes de integração</b><br>
+    Para executar os testes de integração é necessária a execução manual dos testes pós start do projeto (testes de integração <b>não funcionam</b> caso a aplicação não esteja rodando, está classe é a <b>BankSlipIntegration.java</b></br>
+  <LI><b>Testes unitários</b><br>
+    São testes aplicados somente a camada de serviço do projeto podendo ser executados a qualquer momento, são responsaveis       também pela line coverate do projeto, são executados automaticamente no build do projeto, podendo ser executados              manualmente via classe <b>BankSlipServiceTest.java</b>
+</UL>
+ 
+<h3><b>Técnologias Utilizadas:</b></h3>
+<UL>
+  <LI><b>Junit v4.12:</b> Ferramenta utilizada para criação de testes unitários.</LI>
+  <LI><b>Rest Assure v2.9.0:</b> Ferramenta de automação de testes em api rest.</LI>
+  <LI><b>Maven v4.0:</b> Ferramenta de gerenciamento de dependecias e atuamatização de builds.</LI>
+  <LI><b>Intellij v2019.2.2 (Ultimate Edition):</b> IDE de desenvolvimento.</LI>
+</UL>
 
-<b>Exemplos de chamadas e respostas:</b>    
+<h3><b>Urls relevantes:</b></h3>
+  <LI><b>http://localhost:8080/spot_check</b><br>
+    Unica url disponivel no projeto.
+</UL>
 
-curl -X POST \ -d ‘[[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]’<br> 
-http://localhost:8080/spot_check  
-<b>R:</b> {“total_area”: 0, “number_of_spots”: 0, “spots_average_area”: 0.0,  “biggest_spot_area”: 0}    
-
-curl -X POST \ -d ‘[[1, 1, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]]’<br> 
-http://localhost:8080/spot_check  
-<b>R:</b> {“total_area”: 8, “number_of_spots”: 2, “spots_average_area”: 4.0, “biggest_spot_area”: 4}    
-
-curl -X POST \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1]]’<br> 
-http://localhost:8080/spot_check  
-<b>R:</b> {“total_area”: 5, “number_of_spots”: 3, “spots_average_area”: 1.66666, 
-“biggest_spot_area”: 3}    curl -X GET \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1]]’  
-
-http://localhost:8080/spot_check  
-<b>R:</b> Invalid Method    
-
-curl -X POST \ -d ‘[[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 0, 1, 1, 1, 0, 1, 1, 0]]’<br> 
-http://localhost:8080/spot_check<br> 
-<b>R:</b> Invalid Matrix Format 
-
-curl -X POST \ -d ‘[[“0”, 0.0, false, 0], [“1”, 1.0, true, 0], [0, 0, 0, 0], [0, 0, 0, 0]]’<br> 
-http://localhost:8080/spot_check<br> 
-<b>R:</b> Invalid Matrix Forma
+<h3><b>Considerações finais:</b></h3>
+  Faziam alguns anos que não era desafiado com algoritimos complexos como o "matrix island" achei bem interessante e desafiador reproduzilo.
+  Com relação a arquitetura e tecnilogias utilizadas, como recomendação do projeto era utilizar apenas JAVAEE tentei ser o mais purista possivel neste quesito, evitando ao maximo utilização de frameworks.
