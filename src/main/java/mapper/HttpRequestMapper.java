@@ -3,10 +3,6 @@ package mapper;
 import exception.InvalidMatrixFormat;
 import model.request.QuartersForInspectionRequest;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class HttpRequestMapper {
 
     private static final int MATRIX_SIZE = 56;

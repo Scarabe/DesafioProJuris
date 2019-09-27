@@ -3,24 +3,27 @@ package service;
 import model.request.QuartersForInspectionRequest;
 import model.response.IndustrialInspectionResponse;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class InspectionService {
 
-    public IndustrialInspectionResponse inspectSpots(QuartersForInspectionRequest quartersForInspectionRequest) {
+    private static int ROW, COL, count;
+
+    public IndustrialInspectionResponse inspectSpots(final QuartersForInspectionRequest quartersForInspectionRequest) {
 
         Integer totalArea = verifyTotalArea(quartersForInspectionRequest);
-        Integer numberOfSpots = verifyNumberOfSpots(quartersForInspectionRequest);
-        Float spotsAverageArea = (float) totalArea / numberOfSpots;
         Integer biggestSpotArea = verifyBiggestSpotArea(quartersForInspectionRequest);
+        Integer numberOfSpots = verifyNumberOfSpots(quartersForInspectionRequest);
         return new IndustrialInspectionResponse(totalArea,
                 numberOfSpots,
-                spotsAverageArea,
+                (float) totalArea / numberOfSpots,
                 biggestSpotArea);
     }
 
-    private Integer verifyTotalArea(QuartersForInspectionRequest quarters) {
+    private Integer verifyTotalArea(final QuartersForInspectionRequest quarters) {
         List<List<Integer>> validationList = new ArrayList<>();
         for (int[] quarter : quarters.getQuarters()) {
             validationList.add(Arrays.stream(quarter).boxed().collect(Collectors.toList()));
@@ -28,7 +31,7 @@ public class InspectionService {
         return Math.toIntExact(validationList.stream().mapToLong(e -> e.stream().filter(i -> i.equals(1)).count()).sum());
     }
 
-    private Integer verifyNumberOfSpots(QuartersForInspectionRequest quarters) {
+    private Integer verifyNumberOfSpots(final QuartersForInspectionRequest quarters) {
         int[][] matrix = quarters.getQuarters();
         if (matrix == null || matrix.length == 0) return 0;
         int result = 0;
@@ -43,59 +46,59 @@ public class InspectionService {
         return result;
     }
 
-    public static void doFill(int[][] matrix, int row, int col) {
+    private static void doFill(int[][] matrix, int row, int col) {
         if (row < 0 || col < 0 || row >= matrix.length || col >= matrix[0].length || matrix[row][col] == 0) {
             return;
         }
         matrix[row][col] = 0;
-        int dr[] = {-1, 0, 1, 0};
-        int dc[] = {0, 1, 0, -1};
+        int[] dr = {-1, 0, 1, 0};
+        int[] dc = {0, 1, 0, -1};
         for (int i = 0; i < dr.length; i++) {
             doFill(matrix, row + dr[i], col + dc[i]);
         }
     }
 
-    private Integer verifyBiggestSpotArea(QuartersForInspectionRequest quarters) {
-       /* List<List<Integer>> get = quarters.getQuarters();
-        Integer spotSize = 0;
+    private Integer verifyBiggestSpotArea(final QuartersForInspectionRequest quarters) {
+        ROW = quarters.getQuarters().length;
+        COL = quarters.getQuarters()[0].length;
+        count = 1;
+        return largestRegion(quarters.getQuarters());
+    }
 
-        boolean onSpot = true;
+    private static boolean isSafe(int[][] matrix, int row, int col, boolean[][] visited) {
+        return ((row >= 0) &&
+                (row < ROW) &&
+                (col >= 0) &&
+                (col < COL) &&
+                (matrix[row][col] == 1 &&
+                !visited[row][col]));
+    }
 
-        for (int i = 0; i < get.size(); i++) {
-            List<Integer> listInteger = get.get(i);
-            for (int e = 0; e < listInteger.size(); e++) {
-                Integer integer = listInteger.get(e);
-                if (integer.equals(1) && onSpot) {
-                    spotSize++;
-                    valueMap.get(i).set(e, spotSize);
-                    if (spotSize > 1) {
-                        List<Integer> integers = valueMap.get(i);
-                        for (int y = 0; y < spotSize; y++) {
-                            integers.set(e - y, spotSize);
-                        }
-                    }
+    private static void DFS(int[][] matrix, int row, int col, boolean[][] visited) {
+        int[] rowNbr = {-1, 0, 0, 1};
+        int[] colNbr = {0, -1, 1, 0};
 
-                    onSpot = true;
-                } else {
-                    if (integer.equals(0)) {
-                        onSpot = false;
-                        spotSize = 0;
-                    } else if (integer.equals(1)) {
-                        onSpot = true;
-                        spotSize = 1;
-                        valueMap.get(i).set(e, spotSize);
-                    }
+        visited[row][col] = true;
+        for (int k = 0; k < 4; ++k) {
+            if (isSafe(matrix, row + rowNbr[k], col + colNbr[k], visited)) {
+                count++;
+                DFS(matrix, row + rowNbr[k], col + colNbr[k], visited);
+            }
+        }
+    }
+
+    private static int largestRegion(int[][] M) {
+        boolean[][] visited = new boolean[ROW][COL];
+        int result = 0;
+        for (int i = 0; i < ROW; i++) {
+            for (int j = 0; j < COL; j++) {
+                if (M[i][j] == 1 && !visited[i][j]) {
+                    count = 1;
+                    DFS(M, i, j, visited);
+                    result = Math.max(result, count);
                 }
             }
-            onSpot = true;
         }
-
-        List<Integer> maxValue = new ArrayList<>();
-        for (List<Integer> integers : valueMap) {
-            maxValue.add(Collections.max(integers));
-        }
-        return Collections.max(maxValue);
-        */
-        return 4;
+        return result;
     }
 }
