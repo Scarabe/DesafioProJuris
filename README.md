@@ -20,7 +20,7 @@ Para code quality foi utilizada a ferramenta <b>codacy</b> apos analyse feita, a
 <h3><b>Técnologias Utilizadas:</b></h3>
 <UL>
   <LI><b>Junit v4.12:</b> Ferramenta utilizada para criação de testes unitários.</LI>
-  <LI><b>Rest Assure v2.9.0:</b> Ferramenta de automação de testes em api rest.</LI>
+  <LI><b>Javaee-api v7.0:</b> Ferramenta de desenvolvimento de servlets e webservices.</LI>
   <LI><b>Maven v4.0:</b> Ferramenta de gerenciamento de dependecias e atuamatização de builds.</LI>
   <LI><b>Intellij v2019.2.2 (Ultimate Edition):</b> IDE de desenvolvimento.</LI>
 </UL>
