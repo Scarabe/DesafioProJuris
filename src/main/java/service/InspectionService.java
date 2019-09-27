@@ -10,7 +10,9 @@ import java.util.stream.Collectors;
 
 public class InspectionService {
 
-    private static int ROW, COL, count;
+    private static int ROW;
+    private static int COL;
+    private static int count;
 
     public IndustrialInspectionResponse inspectSpots(final QuartersForInspectionRequest quartersForInspectionRequest) {
 
